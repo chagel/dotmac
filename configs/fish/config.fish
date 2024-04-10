@@ -67,4 +67,5 @@ abbr vit vim ~/.tmux.conf
 abbr ws ruby -run -ehttpd . -p 8000
 
 set -gx EDITOR vim
+set -gx GPG_TTY (tty)
 set -U fish_greeting "🐟"
