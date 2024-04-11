@@ -6,6 +6,9 @@ if status is-login
     # Commands to run in login sessions can go here
 end
 
+fish_add_path $HOME/Dotfiles/scripts
+fish_add_path /opt/homebrew/bin
+
 abbr a gcalcli
 abbr aa gcalcli agenda
 abbr am gcalcli calm
@@ -68,4 +71,6 @@ abbr ws ruby -run -ehttpd . -p 8000
 
 set -gx EDITOR vim
 set -gx GPG_TTY (tty)
+set -U nvm_default_version lts/iron
+
 set -U fish_greeting "🐟"
