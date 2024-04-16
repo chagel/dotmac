@@ -8,6 +8,7 @@ end
 
 fish_add_path $HOME/Dotfiles/scripts
 fish_add_path /opt/homebrew/bin
+fish_add_path /opt/homebrew/Caskroom/miniconda/base/bin
 
 abbr a gcalcli
 abbr aa gcalcli agenda
