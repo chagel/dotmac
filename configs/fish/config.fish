@@ -53,7 +53,7 @@ abbr ns "ls -c $NPATH | egrep -i $1"
 abbr o handlr open
 abbr reload source ~/.config/fish/config.fish
 abbr t task
-abbr ta tmux attach-session
+abbr ta tmux attach-session -t
 abbr tl tmux list-session
 abbr tm task long due.before:sonm
 abbr tn task add

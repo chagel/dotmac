@@ -3,6 +3,7 @@ return {
   { 'slim-template/vim-slim' },
   {
     'dense-analysis/ale',
+    enabled = false,
     config = function()
         -- Configuration goes here.
         local g = vim.g

@@ -12,6 +12,7 @@ vim.api.nvim_create_autocmd("User", {
       set noshowcmd
       set scrolloff=999
       Limelight
+      normal <Cmd++>
     ]]
   end,
 })

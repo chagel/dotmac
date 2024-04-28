@@ -148,6 +148,7 @@ return {
         -- tsserver = {},
         --
         --
+        solargraph = {},
         lua_ls = {
           -- cmd = {...},
           -- filetypes = { ...},
@@ -177,7 +178,7 @@ return {
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua',
-        'ruby-lsp',
+        'solargraph',
         'rubocop',
         'tsserver',
         'pyright',

@@ -24,7 +24,7 @@ return {
   {
     "echasnovski/mini.indentscope",
     version = false,
-    enabled = false,
+    enabled = true,
     opts = {
       symbol = "│",
       options = { try_as_border = true },
@@ -84,14 +84,10 @@ return {
             max_length = vim.o.columns - 40,
             tab_max_length = 40,
             use_mode_colors = true,
+            component_separators = { left = ' ', right = ' '},
             symbols = { modified = ' ●' }
 
           }},
-          lualine_b = {},
-          lualine_c = {},
-          lualine_x = {},
-          lualine_y = {},
-          lualine_z = {}
         },
         winbar = {},
         inactive_winbar = {},

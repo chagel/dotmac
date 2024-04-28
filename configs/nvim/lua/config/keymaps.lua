@@ -45,3 +45,7 @@ vim.keymap.set('n', '<C-b>', builtin.buffers, {})
 vim.keymap.set('n', '<leader>t', builtin.treesitter, {})
 vim.keymap.set('n', '<leader>c', builtin.git_commits, {})
 
+
+vim.keymap.set('n', '<leader>l', ':Lazy<CR>', {})
+vim.keymap.set('n', '<leader>m', ':Mason<CR>', {})
+
