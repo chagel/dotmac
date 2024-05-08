@@ -49,14 +49,14 @@ windows:
       panes:
         - c
   - todo: tt
-  - system: 
+  - sys: 
       panes:
         - btop
-  - p1:
+  - pro1:
       root: ~/Dotfiles
       panes: 
         - ll
-  - p2:
+  - pro2:
       root: ~/Workspaces
       panes: 
         - ll
