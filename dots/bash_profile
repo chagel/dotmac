@@ -12,3 +12,4 @@ export PATH="$SCRIPTS:$PATH"
 
 # clean the PATH variables
 export PATH=$(ruby -e "puts ENV['PATH'].split(':').uniq.join(':')")
+. "$HOME/.cargo/env"

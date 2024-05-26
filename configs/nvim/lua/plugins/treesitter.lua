@@ -10,6 +10,7 @@ return {
           "bash",
           "c",
           "diff",
+          "elixir",
           "html",
           "javascript",
           "jsdoc",
