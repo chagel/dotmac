@@ -1,1 +1,0 @@
-doc/omd-help.txt

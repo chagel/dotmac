@@ -2,51 +2,24 @@ DOTS := $(shell ls dots)
 CONFIGS := $(shell ls configs)
 BASE := $(shell pwd)
 
-
-all: dotfile config theme
-config: vim-config tmux-config zsh-config
-update: vim-update tmux-update zsh-update
-server: init basic
+all: init link 
 
 init: 
+	## make .config folder
 	@mkdir -pv ${HOME}/.config
-	@touch ${HOME}/.bash_profile
 
-basic:
-	## add basic alias to .bash init
-	@echo "source ${BASE}/aliases/basic" >> ${HOME}/.bash_profile
-
-dotfile:
-	## make dotfile in home root folder
+link:
+	## link dotfile under ${HOME} and ${XDG_CONFIG_HOME}
 	@for item in $(DOTS); do ln -vsfn ${BASE}/dots/$$item ${HOME}/.$$item; done
 	@for item in $(CONFIGS); do ln -vsfn ${BASE}/configs/$$item ${HOME}/.config/$$item; done
+	## link vim 
+	@ln -vsfn ${BASE}/Dotbase/nvim ${HOME}/.config/nvim
+	## link tmux
+	@ln -vsfn ${BASE}/Dotbase/tmux ${HOME}/.tmux
+	@ln -vsf ${BASE}/Dotbase/tmux/tmux.conf ${HOME}/.tmux.conf
 
-theme:
-	## config GTK and other themes
-	@ln -vsf ${BASE}/themes/zsh/mgc.zsh-theme ${HOME}/.oh-my-zsh/themes/mgc.zsh-theme
-
-vim-config:
-	## config vim 
-	@ln -vsfn ${BASE}/vim ${HOME}/.vim
-	@ln -vsfn ${BASE}/vim/nvim ${HOME}/.config/nvim
-	@ln -vsf ${BASE}/vim/vimrc ${HOME}/.vimrc
-
-vim-update:
-	## update vim plugins
-	@nvim -E -u NONE -S ${HOME}/.vimrc +PlugUpgrade +PlugInstall +PlugUpdate +qall
-
-zsh-config:
-	## config zsh 
-	@ln -vsf ${BASE}/zsh/zshrc ${HOME}/.zshrc
-
-zsh-update:
-	## update omz
-	@sh ${ZSH}/tools/upgrade.sh
-
-tmux-config:
+tmux-setup:
 	## config tmux 
-	@ln -vsfn ${BASE}/tmux ${HOME}/.tmux
-	@ln -vsf ${BASE}/tmux/tmux.conf ${HOME}/.tmux.conf
 	@rm -rf ${HOME}/.tmux/plugins/tpm
 	@git clone https://github.com/tmux-plugins/tpm ${HOME}/.tmux/plugins/tpm
 
@@ -54,7 +27,3 @@ tmux-update:
 	## update tmux plugins 
 	~/.tmux/plugins/tpm/bin/install_plugins
 	~/.tmux/plugins/tpm/bin/update_plugins all
-
-clean: 
-	## clean up 
-

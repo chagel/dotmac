@@ -6,7 +6,7 @@ if status is-login
     # Commands to run in login sessions can go here
 end
 
-fish_add_path $HOME/Dotfiles/scripts
+fish_add_path $HOME/Dotmac/scripts
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/Caskroom/miniconda/base/bin
 
@@ -64,8 +64,6 @@ abbr uc uncommitted
 abbr uninstall brew remove
 abbr upgrade-system brew upgrade
 abbr vg vim Gemfile
-abbr vid vim ~/Dotfiles/
-abbr vie vim ~/.vimrc
 abbr vim nvim
 abbr vit vim ~/.tmux.conf
 abbr ws ruby -run -ehttpd . -p 8000
