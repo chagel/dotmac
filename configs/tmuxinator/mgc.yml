@@ -48,15 +48,20 @@ windows:
   - fm:
       panes:
         - c
-  - todo: tt
+  - blog: 
+      root: ~/Workspaces/gchen/src/blog
+      layout: main-vertical
+      panes:
+        - ls _posts | sort -r | head -n 10
+        - pwd
   - sys: 
       panes:
         - btop
-  - pro1:
+  - dot:
       root: ~/Dotfiles
       panes: 
         - ll
-  - pro2:
+  - pro:
       root: ~/Workspaces
       panes: 
         - ll

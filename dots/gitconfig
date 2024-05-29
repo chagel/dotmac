@@ -2,6 +2,7 @@
 	name = MGC
 	email = chagel@gmail.com
 	signingkey = CE7B58CACC69FFB0
+	useConfigOnly = true
 [push]
 	default = simple
 [alias]
@@ -30,14 +31,24 @@
     tool = nvimdiff
 [mergetool]
     prompt = true
+	keepBackup = false
 [mergetool "nvimdiff"]
     cmd = "nvim -d \"$LOCAL\" \"$REMOTE\" \"$MERGED\" -c 'wincmd w' -c 'wincmd J'"
 [core]
 	excludesfile = ~/.gitignore_global
+	quotepath = false
+	longpaths = true
+	autocrlf = input
+	trustctime = false
+	attributesfile = ~/.attributes_global
+	ignorecase = true
+	untrackedcache = true
 [init]
 	templatedir = ~/.git_template
+	defaultBranch = master
 [https]
 [http]
+	postBuffer = 655360000
 [socks]
 
 [commit]
@@ -67,3 +78,24 @@
 	smudge = git-lfs smudge -- %f
 	process = git-lfs filter-process
 	required = true
+[diff "text"]
+	textconv = cat
+[lfs]
+	concurrenttransfers = 16
+	fetchrecentrefsdays = 0
+	pruneoffsetdays = 0
+	dialtimeout = 3
+	tlstimeout = 3
+[lfs "transfer"]
+	maxretries = 1
+	maxretrydelay = 2
+[merge "lfs-text"]
+	driver = git lfs merge-driver --ancestor %O --current %A --other %B --marker-size %L --output %A --program 'git merge-file --stdout --marker-size=%%L %%A %%O %%B >%%D'
+[rebase]
+	backend = merge
+[protocol]
+	version = 1
+[pull]
+	rebase = false
+[safe]
+	directory = *

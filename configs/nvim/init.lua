@@ -5,4 +5,4 @@ require("config.keymaps")
 require("config.options")
 require("config.settings")
 
-vim.cmd [[colorscheme catppuccin-mocha]]
+vim.cmd [[colorscheme catppuccin]]

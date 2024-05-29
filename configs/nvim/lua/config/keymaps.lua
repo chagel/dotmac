@@ -1,41 +1,42 @@
 -- Key mappings for Neovim in init.lua
+local map = vim.api.nvim_set_keymap
 
 -- Insert mode mappings
-vim.api.nvim_set_keymap('i', 'jj', '<Esc>', {noremap = true, silent = true})
+map('i', 'jj', '<Esc>', {noremap = true, silent = true})
 
 -- Normal mode mappings for window navigation
-vim.api.nvim_set_keymap('n', '<C-J>', '<C-W><C-J>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-K>', '<C-W><C-K>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-L>', '<C-W><C-L>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-H>', '<C-W><C-H>', {noremap = true, silent = true})
+map('n', '<C-J>', '<C-W><C-J>', {noremap = true, silent = true})
+map('n', '<C-K>', '<C-W><C-K>', {noremap = true, silent = true})
+map('n', '<C-L>', '<C-W><C-L>', {noremap = true, silent = true})
+map('n', '<C-H>', '<C-W><C-H>', {noremap = true, silent = true})
 
 -- Tab navigation and other mappings using leader key
-vim.api.nvim_set_keymap('n', '<leader>0', ':tablast<CR>', {noremap = true, silent = true})
+map('n', '<leader>0', ':tablast<CR>', {noremap = true, silent = true})
 for i = 1, 9 do
-    vim.api.nvim_set_keymap('n', '<leader>'..i, ':tabn '..i..'<CR>', {noremap = true, silent = true})
+    map('n', '<leader>'..i, ':tabn '..i..'<CR>', {noremap = true, silent = true})
 end
 
-vim.api.nvim_set_keymap('n', '<leader>h', ':noh<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>z', ':Goyo<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>p', ':bp<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>b', ':Git blame<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>a', 'za', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>s', ':w<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>q', ':q<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<leader>w', ':NvimTreeFindFileToggle<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '_', ':NvimTreeResize -20<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '+', ':NvimTreeResize +20<CR>', {noremap = true, silent = true})
+map('n', '<leader>h', ':noh<CR>', {noremap = true, silent = true})
+map('n', '<leader>z', ':ZenMode<CR>', {noremap = true, silent = true})
+map('n', '<leader>p', ':bp<CR>', {noremap = true, silent = true})
+map('n', '<leader>b', ':Git blame<CR>', {noremap = true, silent = true})
+map('n', '<leader>a', 'za', {noremap = true, silent = true})
+map('n', '<leader>s', ':w<CR>', {noremap = true, silent = true})
+map('n', '<leader>q', ':q<CR>', {noremap = true, silent = true})
+map('n', '<leader>w', ':NvimTreeFindFileToggle<CR>', {noremap = true, silent = true})
+map('n', '_', ':NvimTreeResize -20<CR>', {noremap = true, silent = true})
+map('n', '+', ':NvimTreeResize +20<CR>', {noremap = true, silent = true})
 
 -- Resize mappings
-vim.api.nvim_set_keymap('n', '<C-down>', ':resize -10<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-up>', ':resize +10<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-right>', ':vertical resize +10<CR>', {noremap = true, silent = true})
-vim.api.nvim_set_keymap('n', '<C-left>', ':vertical resize -10<CR>', {noremap = true, silent = true})
+map('n', '<C-down>', ':resize -10<CR>', {noremap = true, silent = true})
+map('n', '<C-up>', ':resize +10<CR>', {noremap = true, silent = true})
+map('n', '<C-right>', ':vertical resize +10<CR>', {noremap = true, silent = true})
+map('n', '<C-left>', ':vertical resize -10<CR>', {noremap = true, silent = true})
 
 -- Visual mode mappings
-vim.api.nvim_set_keymap('v', '<Enter>', '<Plug>(EasyAlign)', {})
-vim.api.nvim_set_keymap('n', 'ga', '<Plug>(EasyAlign)', {})
-vim.api.nvim_set_keymap('n', '-', '<Plug>(choosewin)', {})
+map('v', '<Enter>', '<Plug>(EasyAlign)', {})
+map('n', 'ga', '<Plug>(EasyAlign)', {})
+map('n', '-', '<Plug>(choosewin)', {})
 
 -- telescope 
 local builtin = require('telescope.builtin')

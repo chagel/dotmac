@@ -20,6 +20,3 @@ vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 vim.g.updatetime = 100
 vim.g.signcolumn = "auto"
-vim.g.limelight_conceal_ctermfg = 'gray'
-vim.g.limelight_conceal_ctermfg = 240
-
