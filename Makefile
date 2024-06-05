@@ -13,10 +13,10 @@ link:
 	@for item in $(DOTS); do ln -vsfn ${BASE}/dots/$$item ${HOME}/.$$item; done
 	@for item in $(CONFIGS); do ln -vsfn ${BASE}/configs/$$item ${HOME}/.config/$$item; done
 	## link vim 
-	@ln -vsfn ${BASE}/Dotbase/nvim ${HOME}/.config/nvim
+	@ln -vsfn ${BASE}/dotbase/nvim ${HOME}/.config/nvim
 	## link tmux
-	@ln -vsfn ${BASE}/Dotbase/tmux ${HOME}/.tmux
-	@ln -vsf ${BASE}/Dotbase/tmux/tmux.conf ${HOME}/.tmux.conf
+	@ln -vsfn ${BASE}/dotbase/tmux ${HOME}/.tmux
+	@ln -vsf ${BASE}/dotbase/tmux/tmux.conf ${HOME}/.tmux.conf
 
 tmux-setup:
 	## config tmux 
