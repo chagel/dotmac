@@ -7,6 +7,7 @@ if status is-login
 end
 
 fish_add_path $HOME/Dotmac/scripts
+fish_add_path $HOME/.local/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/Caskroom/miniconda/base/bin
 
@@ -50,7 +51,6 @@ abbr nn nnn -d -T t
 abbr note vim -c 'edit note:$1'
 abbr notes vim -c 'RecentNotes'
 abbr ns "ls -c $NPATH | egrep -i $1"
-abbr o handlr open
 abbr reload source ~/.config/fish/config.fish
 abbr t task
 abbr ta tmux attach-session -t
