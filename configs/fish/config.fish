@@ -71,4 +71,4 @@ abbr ws ruby -run -ehttpd . -p 8000
 set -gx EDITOR vim
 set -gx GPG_TTY (tty)
 set -U nvm_default_version lts/iron
-set -U fish_greeting "🐟"
+set -U fish_greeting ""
