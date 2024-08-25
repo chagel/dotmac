@@ -20,3 +20,5 @@ node_modules
 /run/timeshift
 
 .solargraph.yml
+
+.avante_chat_history/

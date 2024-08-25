@@ -70,5 +70,6 @@ abbr ws ruby -run -ehttpd . -p 8000
 
 set -gx EDITOR vim
 set -gx GPG_TTY (tty)
+set -gx OPENAI_API_KEY (pass show keys/openai_api_key)
 set -U nvm_default_version lts/iron
 set -U fish_greeting ""
