@@ -99,3 +99,5 @@
 	rebase = false
 [safe]
 	directory = *
+[credential]
+	helper = cache
