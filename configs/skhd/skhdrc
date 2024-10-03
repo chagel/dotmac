@@ -1,6 +1,5 @@
 # https://github.com/koekeishiya/skhd/issues/1
 
-cmd - p : open /Applications/Raycast.app
 cmd - return : /Applications/kitty.app/Contents/MacOS/kitty --single-instance -d ~
 
 # cmd + h/l/k/j to move focus on windows(Amethyst) 
