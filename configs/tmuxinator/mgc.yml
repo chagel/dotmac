@@ -44,6 +44,10 @@ root: ~/
 # Controls whether the tmux session should be attached to automatically. Defaults to true.
 # attach: false
 
+enable_pane_titles: true
+pane_title_position: top
+pane_title_format: " [ #T ] "
+
 windows:
   - fm:
       panes:
