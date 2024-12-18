@@ -17,7 +17,10 @@ link:
 	## link tmux
 	@ln -vsfn ${BASE}/dotbase/tmux ${HOME}/.tmux
 	@ln -vsf ${BASE}/dotbase/tmux/tmux.conf ${HOME}/.tmux.conf
-
+	## link fish 
+	@ln -vsfn ${BASE}/dotbase/fish ${HOME}/.config/fish
+	## link kitty 
+	@ln -vsfn ${BASE}/dotbase/kitty ${HOME}/.config/kitty
 tmux-setup:
 	## config tmux 
 	@rm -rf ${HOME}/.tmux/plugins/tpm
