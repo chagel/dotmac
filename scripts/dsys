@@ -1,7 +1,7 @@
 #!/bin/sh
 
 mem() {
-  ps -e -o pid,comm,pmem,pcpu,rss | awk '{arr[$2]+=$5}; END {for (i in arr) {printf("%s %.f\n", i, arr[i]/1024)}}' | sort -nk2 --reverse | head -n10 | uplot bar -d " " -t "Mem Usage(MB)"
+  LC_ALL=C ps -e -o pid,args,pmem,pcpu,rss | awk 'NR>1 {arr[$2]+=$5} END {for (i in arr) {printf("%s %.f\n", i, arr[i]/1024)}}' | sort -k2 -nr | head -n10 | uplot bar -d " " -t "Mem Usage(MB)"
 }
 
 case "$1" in

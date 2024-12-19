@@ -22,3 +22,8 @@ node_modules
 .solargraph.yml
 
 .avante_chat_history/
+
+.OrbStack/
+OrbStack/
+
+/Library

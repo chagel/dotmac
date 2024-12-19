@@ -1,5 +1,7 @@
-function frg {
-    result=`rg --ignore-case --color=always --line-number --no-heading "$@" |
+#!/bin/bash
+
+function search {
+    result=`rg --ignore-case --ignore-file ~/.gitignore_global --color=always --line-number --no-heading "$@" |
       fzf --ansi \
           --color 'hl:-1:underline,hl+:-1:underline:reverse' \
           --delimiter ':' \
@@ -12,4 +14,4 @@ function frg {
     fi
 }
 
-frg $1
+search $1
