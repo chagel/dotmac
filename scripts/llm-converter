@@ -1,0 +1,41 @@
+#!/bin/bash
+
+LOG_FILE=/tmp/llm_converter.log
+
+echo "----------------------" >> $LOG_FILE
+echo "Date: $(date)" >> $LOG_FILE
+
+# Notify the user (optional)
+osascript -e 'display notification "Magic is cooking.." with title "LLM Converter"'
+
+# Default tone is 'pro' if no argument is provided
+TONE=${1:-pro}
+
+# Simulate CMD+C to copy selected text to clipboard
+osascript -e 'tell application "System Events" to keystroke "c" using command down'
+
+# Wait briefly to ensure clipboard is updated
+sleep 0.2
+
+# Get the selected text from the clipboard
+SELECTED_TEXT=$(pbpaste)
+
+echo "Original input to clipboard: $SELECTED_TEXT" >> $LOG_FILE
+echo "Tone: $TONE" >> $LOG_FILE
+
+# Process the text
+PROCESSED_TEXT=$(echo "$SELECTED_TEXT" | llm -t "$TONE")
+
+echo "LLM transformed: $PROCESSED_TEXT" >> $LOG_FILE
+
+# Replace the selected text with the processed text
+echo "$PROCESSED_TEXT" | pbcopy
+osascript -e 'tell application "System Events" to keystroke "v" using command down'
+
+# Wait briefly to ensure clipboard is updated
+sleep 0.2
+
+# Restore the original text to clipboard
+echo "$SELECTED_TEXT" | pbcopy
+
+osascript -e 'do shell script "open \"raycast://confetti\""'

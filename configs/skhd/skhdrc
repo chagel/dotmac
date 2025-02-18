@@ -9,3 +9,6 @@ cmd - l : skhd -k "cmd - j"
 # cmd + comma/dot to move focus on screens
 cmd - 0x2B : skhd -k "cmd + ctrl - 1"
 cmd - 0x2F : skhd -k "cmd + ctrl - 2"
+
+cmd + shift - g : sh ~/Dotmac/scripts/llm-converter pro
+cmd + shift - f : sh ~/Dotmac/scripts/llm-converter cto
