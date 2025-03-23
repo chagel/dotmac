@@ -13,3 +13,12 @@ set -gx ANTHROPIC_API_KEY (pass show keys/anthropic_api_key)
 abbr install brew install
 abbr uninstall brew remove
 abbr upgrade-system brew upgrade
+
+function y
+	set tmp (mktemp -t "yazi-cwd.XXXXXX")
+	yazi $argv --cwd-file="$tmp"
+	if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
+		builtin cd -- "$cwd"
+	end
+	rm -f -- "$tmp"
+end
