@@ -1,0 +1,83 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# 👤 Customize your email and 1Password info
+GPG_EMAIL="chagel@gmail.com"
+VAULT="Personal"
+PUBKEY_TITLE="GPG Public Key ($GPG_EMAIL)"
+SECKEY_TITLE="GPG Private Key ($GPG_EMAIL)"
+PASSPHRASE_ITEM_ID="op://$VAULT/GPG Passphrase/password"
+KEYGRIP="6BB96A3FFC78092FDC99438494F90B5932E1FF44" 
+
+# ⏳ Temp file paths
+PUBKEY_FILE=$(mktemp)
+SECKEY_FILE=$(mktemp)
+
+# ✅ Make sure 1Password CLI is signed in
+eval "$(op signin --account my)" # Replace `my` with your account alias
+
+# 📍 gpg-preset-passphrase path
+GPP_CMD="$(gpgconf --list-dirs libexecdir)/gpg-preset-passphrase"
+
+# 🔁 Available modes
+MODE=${1:-help}
+
+function do_export {
+  echo "📤 Exporting GPG keys and uploading to 1Password..."
+
+  gpg --armor --export "$GPG_EMAIL" > "$PUBKEY_FILE"
+  gpg --armor --export-secret-keys "$GPG_EMAIL" > "$SECKEY_FILE"
+
+  op document delete "$PUBKEY_TITLE" --vault "$VAULT" --force &>/dev/null || true
+  op document delete "$SECKEY_TITLE" --vault "$VAULT" --force &>/dev/null || true
+
+  op document create "$PUBKEY_FILE" --title "$PUBKEY_TITLE" --vault "$VAULT"
+  op document create "$SECKEY_FILE" --title "$SECKEY_TITLE" --vault "$VAULT"
+
+  echo "✅ GPG keys exported and saved to 1Password."
+}
+
+function do_import {
+  echo "📥 Importing GPG keys from 1Password..."
+
+  op document get "$PUBKEY_TITLE" --vault "$VAULT" > "$PUBKEY_FILE"
+  op document get "$SECKEY_TITLE" --vault "$VAULT" > "$SECKEY_FILE"
+
+  gpg --import "$PUBKEY_FILE"
+  gpg --import "$SECKEY_FILE"
+
+  echo "✅ GPG keys imported into GPG keyring."
+}
+
+function do_cache {
+  echo "🔐 Caching GPG passphrase using gpg-preset-passphrase..."
+
+  gpg-connect-agent /bye &>/dev/null
+  PASSPHRASE=$(op read "$PASSPHRASE_ITEM_ID")
+
+  echo "$PASSPHRASE" | "$GPP_CMD" --preset "$KEYGRIP"
+
+  echo "✅ Passphrase cached in gpg-agent."
+}
+
+function show_help {
+  echo "Usage: $0 [export|import|cache|all]"
+}
+
+function do_all {
+  do_import
+  do_cache
+}
+
+# 🔧 Run selected mode
+case "$MODE" in
+  export) do_export ;;
+  import) do_import ;;
+  cache)  do_cache ;;
+  all)    do_all ;;
+  *)      show_help ;;
+esac
+
+# 🧹 Clean up temp files
+rm -f "$PUBKEY_FILE" "$SECKEY_FILE"
