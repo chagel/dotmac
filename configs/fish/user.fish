@@ -1,25 +1,47 @@
-fish_add_path $HOME/Dotmac/scripts
+# Central environment configuration for macOS
+# This file centralizes environment variables and paths specific to this machine
+
+# Path to dotfiles repository - use this variable instead of hardcoding paths
+set -gx DOTFILES_DIR $HOME/Dotmac
+
+# Scripts path - reference DOTFILES_DIR instead of hardcoding
+fish_add_path $DOTFILES_DIR/scripts
 fish_add_path $HOME/.local/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/Caskroom/miniconda/base/bin
 
+# Golang path
+set -gx GOPATH $HOME/Develop/go
+fish_add_path $HOME/.lmstudio/bin
+
+# API Keys (retrieved from password store)
+function load_api_keys --description "Load API keys from password store"
+    if type -q pass
+        set -gx OPENAI_API_KEY (pass show keys/openai_api_key 2>/dev/null || echo "")
+        set -gx ANTHROPIC_API_KEY (pass show keys/anthropic_api_key 2>/dev/null || echo "")
+    end
+end
+
+# Only load keys in interactive sessions
+if status is-interactive
+    load_api_keys
+end
+
+# OrbStack integration
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
-set -gx GOPATH $HOME/Develop/go
-set -gx PATH $PATH $HOME/.lmstudio/bin
-set -gx OPENAI_API_KEY (pass show keys/openai_api_key)
-set -gx ANTHROPIC_API_KEY (pass show keys/anthropic_api_key)
-
+# macOS specific abbreviations
 abbr install brew install
 abbr uninstall brew remove
 abbr upgrade-system brew upgrade
 
+# AWS tools abbreviations
+abbr awse aws-tools ec2
+abbr awsu aws-tools users
+abbr awsi aws-tools info
+abbr awsr aws-tools regions
+
+abbr be bundle exec
+
+# Initialize rbenv
 status --is-interactive; and rbenv init - --no-rehash fish | source
-function y
-	set tmp (mktemp -t "yazi-cwd.XXXXXX")
-	yazi $argv --cwd-file="$tmp"
-	if set cwd (command cat -- "$tmp"); and [ -n "$cwd" ]; and [ "$cwd" != "$PWD" ]
-		builtin cd -- "$cwd"
-	end
-	rm -f -- "$tmp"
-end

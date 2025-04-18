@@ -1,0 +1,105 @@
+#!/bin/bash
+# AWS Tools - Useful AWS CLI commands and shortcuts with region support
+
+# Function to show EC2 instances in a nicely formatted table
+ec2_instances() {
+    local region=${1:-$(aws configure get region)}
+    echo "Fetching EC2 instances in region: $region..."
+    
+    aws ec2 describe-instances --region "$region" --output table --query "Reservations[].Instances[].{
+        Name:Tags[?Key=='Name'].Value | [0],
+        InstanceID:InstanceId,
+        InstanceType:InstanceType,
+        PublicIP:PublicIpAddress,
+        State:State.Name,
+        PrivateIP:NetworkInterfaces[0].PrivateIpAddress
+    }"
+}
+
+# Function to list IAM users (global resource, not region-specific)
+list_users() {
+    echo "Fetching IAM users..."
+    aws iam list-users --output table
+}
+
+# Show current AWS account info
+account_info() {
+    local region=${1:-$(aws configure get region)}
+    echo "AWS Account Information (region: $region):"
+    echo "------------------------"
+    
+    # Get current identity
+    echo -n "Current User: "
+    aws sts get-caller-identity --region "$region" --query "Arn" --output text
+    
+    # Get current region
+    echo "Current Region: $region"
+    
+    # Try to get account alias
+    echo -n "Account Alias: "
+    aws iam list-account-aliases --query "AccountAliases[0]" --output text 2>/dev/null || echo "Unable to determine or not set"
+}
+
+# List available AWS regions
+list_regions() {
+    echo "Available AWS Regions:"
+    echo "---------------------"
+    aws ec2 describe-regions --output text --query "Regions[].RegionName" | sort
+}
+
+# Show usage information
+show_usage() {
+    echo "AWS Tools - Useful AWS CLI commands with region support"
+    echo "Usage: $(basename $0) command [region]"
+    echo ""
+    echo "Commands:"
+    echo "  ec2 [region]     - List EC2 instances with details in specified region"
+    echo "  users            - List IAM users (global resource)"
+    echo "  info [region]    - Show current AWS account information"
+    echo "  regions          - List all available AWS regions"
+    echo ""
+    echo "Examples:"
+    echo "  $(basename $0) ec2                # Uses default region"
+    echo "  $(basename $0) ec2 us-west-2      # Uses us-west-2 region"
+    echo "  $(basename $0) info eu-central-1  # Shows account info for eu-central-1"
+    echo ""
+    echo "Notes:"
+    echo "  - When region is not specified, your default region is used"
+    echo "  - To use a specific AWS profile, set the AWS_PROFILE environment variable:"
+    echo "    AWS_PROFILE=myprofile $(basename $0) ec2"
+}
+
+# No command provided
+if [ $# -eq 0 ]; then
+    # No arguments - show usage
+    show_usage
+    exit 0
+fi
+
+# Get the command
+COMMAND="$1"
+shift
+
+# Execute the requested command
+case "$COMMAND" in
+    ec2)
+        ec2_instances "$1"
+        ;;
+    users)
+        list_users
+        ;;
+    info)
+        account_info "$1"
+        ;;
+    regions)
+        list_regions
+        ;;
+    -h|--help)
+        show_usage
+        ;;
+    *)
+        echo "Unknown command: $COMMAND"
+        show_usage
+        exit 1
+        ;;
+esac

@@ -1,0 +1,24 @@
+#!/bin/bash
+# Yazi file manager wrapper script
+# Launches Yazi and changes directory upon exit
+#
+# Usage: 
+#   For Bash/Zsh: eval "$(y [options])"
+#   For Fish: y [options] | source
+
+# Create temporary file to store directory
+TMP_FILE=$(mktemp -t "yazi-cwd.XXXXXX")
+
+# Launch Yazi with provided arguments
+yazi "$@" --cwd-file="$TMP_FILE"
+
+# Check if Yazi changed directories
+if [ -f "$TMP_FILE" ]; then
+    NEW_DIR=$(cat "$TMP_FILE")
+    if [ -n "$NEW_DIR" ] && [ "$NEW_DIR" != "$PWD" ]; then
+        # Output cd command for the shell to execute
+        echo "cd \"$NEW_DIR\"" 
+    fi
+    # Clean up
+    rm -f "$TMP_FILE"
+fi
