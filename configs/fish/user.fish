@@ -14,6 +14,7 @@ abbr install brew install
 abbr uninstall brew remove
 abbr upgrade-system brew upgrade
 
+status --is-interactive; and rbenv init - --no-rehash fish | source
 function y
 	set tmp (mktemp -t "yazi-cwd.XXXXXX")
 	yazi $argv --cwd-file="$tmp"
