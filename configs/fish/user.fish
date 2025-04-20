@@ -14,17 +14,17 @@ fish_add_path /opt/homebrew/Caskroom/miniconda/base/bin
 set -gx GOPATH $HOME/Develop/go
 fish_add_path $HOME/.lmstudio/bin
 
-# API Keys (retrieved from password store)
-function load_api_keys --description "Load API keys from password store"
+# API Keys
+function load_api_keys --description "Load API keys from password store(1Password)"
     if type -q pass
-        set -gx OPENAI_API_KEY (pass show keys/openai_api_key 2>/dev/null || echo "")
-        set -gx ANTHROPIC_API_KEY (pass show keys/anthropic_api_key 2>/dev/null || echo "")
+        set -gx OPENAI_API_KEY (op item get cfx7ecmfy3pc7a3zcc7vr2fmhe --reveal --fields credential || echo "")
+        set -gx ANTHROPIC_API_KEY (op item get kyapm6qumqcvjzzmtqvvypxmi4 --reveal --fields credential || echo "")
     end
 end
 
 # Only load keys in interactive sessions
 if status is-interactive
-    load_api_keys
+	load_api_keys
 end
 
 # OrbStack integration
