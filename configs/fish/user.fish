@@ -17,14 +17,9 @@ fish_add_path $HOME/.lmstudio/bin
 # API Keys
 function load_api_keys --description "Load API keys from password store(1Password)"
     if type -q pass
-        set -gx OPENAI_API_KEY (op item get cfx7ecmfy3pc7a3zcc7vr2fmhe --reveal --fields credential || echo "")
-        set -gx ANTHROPIC_API_KEY (op item get kyapm6qumqcvjzzmtqvvypxmi4 --reveal --fields credential || echo "")
+        set -gx OPENAI_API_KEY (op item get cfx7ecmfy3pc7a3zcc7vr2fmhe --reveal --fields "api key" || echo "")
+        set -gx ANTHROPIC_API_KEY (op item get kyapm6qumqcvjzzmtqvvypxmi4 --reveal --fields "api key" || echo "")
     end
-end
-
-# Only load keys in interactive sessions
-if status is-interactive
-	load_api_keys
 end
 
 # OrbStack integration

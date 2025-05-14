@@ -13,4 +13,4 @@
 # @raycast.description Start another WeChat instance
 # @raycast.author MGC
 
-nohup /Applications/WeChat.app/Contents/MacOS/WeChat> /dev/null 2>&1 &
+nohup /Applications/WeChat\ 3.app/Contents/MacOS/WeChat> /dev/null 2>&1 &
