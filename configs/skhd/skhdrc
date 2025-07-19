@@ -8,5 +8,17 @@ cmd - l : skhd -k "cmd - j"
 cmd - 0x2B : skhd -k "cmd + ctrl - 1"
 cmd - 0x2F : skhd -k "cmd + ctrl - 2"
 
+# Right option key as super key (ctrl+shift+option)
+ralt - s : skhd -k "ctrl + shift + alt - s"
+ralt - p : skhd -k "ctrl + shift + alt - p"
+ralt - w : skhd -k "ctrl + shift + alt - w"
+ralt - m : skhd -k "ctrl + shift + alt - m"
+ralt - n : skhd -k "ctrl + shift + alt - n"
+ralt - c : skhd -k "ctrl + shift + alt - c"
+ralt - d : skhd -k "ctrl + shift + alt - d"
+ralt - h : skhd -k "ctrl + shift + alt - h"
+ralt - z : skhd -k "ctrl + shift + alt - z"
+ralt - k : skhd -k "ctrl + shift + alt - k"
+
 cmd + shift - g : sh ~/Dotmac/scripts/llm-converter pro
 cmd + shift - f : sh ~/Dotmac/scripts/llm-converter cto
