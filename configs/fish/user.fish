@@ -37,6 +37,3 @@ abbr awsi aws-tools info
 abbr awsr aws-tools regions
 
 abbr be bundle exec
-
-# Initialize rbenv
-status --is-interactive; and rbenv init - --no-rehash fish | source
