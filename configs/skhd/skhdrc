@@ -1,6 +1,6 @@
 # https://github.com/koekeishiya/skhd/issues/1
 
-# cmd + h/l/k/j to move focus on windows(Amethyst) 
+# cmd + h/l/k/j to move focus on windows(Amethyst)
 cmd - h : skhd -k "cmd - k"
 cmd - l : skhd -k "cmd - j"
 
@@ -20,5 +20,5 @@ ralt - h : skhd -k "ctrl + shift + alt - h"
 ralt - z : skhd -k "ctrl + shift + alt - z"
 ralt - k : skhd -k "ctrl + shift + alt - k"
 
-cmd + shift - g : sh ~/Dotmac/scripts/llm-converter pro
-cmd + shift - f : sh ~/Dotmac/scripts/llm-converter cto
+cmd + shift + ctrl - g : sh ~/Dotmac/scripts/llm-converter pro
+cmd + shift + ctrl - f : sh ~/Dotmac/scripts/llm-converter cto

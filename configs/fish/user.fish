@@ -9,6 +9,7 @@ fish_add_path $DOTFILES_DIR/scripts
 fish_add_path $HOME/.local/bin
 fish_add_path /opt/homebrew/bin
 fish_add_path /opt/homebrew/Caskroom/miniconda/base/bin
+fish_add_path $HOME/Develop/py/depot_tools
 
 # Golang path
 set -gx GOPATH $HOME/Develop/go
