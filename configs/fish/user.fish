@@ -26,6 +26,13 @@ end
 # OrbStack integration
 source ~/.orbstack/shell/init2.fish 2>/dev/null || :
 
+# Google Cloud SDK
+source $HOME/Downloads/google-cloud-sdk/path.fish.inc 2>/dev/null || :
+
+# bun
+set -gx BUN_INSTALL "$HOME/.bun"
+fish_add_path $BUN_INSTALL/bin
+
 # macOS specific abbreviations
 abbr install brew install
 abbr uninstall brew remove
@@ -38,3 +45,4 @@ abbr awsi aws-tools info
 abbr awsr aws-tools regions
 
 abbr be bundle exec
+

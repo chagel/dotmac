@@ -23,3 +23,5 @@ configs/tmuxinator/*
 !configs/tmuxinator/mgc.yml
 
 fish/fish_variables
+
+.claude/settings.local.json
