@@ -21,17 +21,25 @@
 
 APP="/Applications/WeChat.app"
 APP2="/Applications/WeChat2.app"
+BUNDLE_ID2="com.tencent.xinWeChat2"
 
 ver() {
   /usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$1/Contents/Info.plist" 2>/dev/null
 }
 
-if [ "$(ver "$APP")" != "$(ver "$APP2")" ]; then
+bid() {
+  /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" "$1/Contents/Info.plist" 2>/dev/null
+}
+
+# Rebuild on version mismatch, and also when the bundle id is wrong --
+# a previous rebuild may have copied the app but failed the plist edit.
+if [ "$(ver "$APP")" != "$(ver "$APP2")" ] || [ "$(bid "$APP2")" != "$BUNDLE_ID2" ]; then
   echo "Rebuilding WeChat2.app from WeChat $(ver "$APP")..."
   rm -rf "$APP2"
-  ditto "$APP" "$APP2"
-  /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier com.tencent.xinWeChat2" "$APP2/Contents/Info.plist"
-  codesign --force --deep --sign - "$APP2"
+  ditto "$APP" "$APP2" || { echo "ditto failed"; exit 1; }
+  /usr/libexec/PlistBuddy -c "Set :CFBundleIdentifier $BUNDLE_ID2" "$APP2/Contents/Info.plist" || { echo "plist edit failed"; exit 1; }
+  codesign --force --deep --sign - "$APP2" || { echo "codesign failed"; exit 1; }
+  [ "$(bid "$APP2")" = "$BUNDLE_ID2" ] || { echo "bundle id verification failed"; exit 1; }
 fi
 
 open -g -a "$APP2"
